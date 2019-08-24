@@ -2,13 +2,30 @@
 
 # lsgithub
 
-# Last update: Tue Aug  6 10:13:40 JST 2019 by hohno
+# Prev update: Tue Aug  6 10:13:40 JST 2019 by hohno
+# Last update: Thu Aug  8 06:26:36 JST 2019 by hohno
+
+# ----------------------------------------------------------
+
+abort () {
+    retCode=$1
+    shift
+    echo "$@" 1>&2
+    exit $retCode
+}
+
+# ----------------------------------------------------------
 
 jq=/usr/local/bin/jq
 
-[ -x "$jq" ] || exit 1
+[ -x "$jq" ] || abort 9 "$jq not found"
+
+
+# ----------------------------------------------------------
 
 GITHUB_USER=hohno-46466
+
+# ----------------------------------------------------------
 
 if [ "x$1" = "x-t" ]; then
     CMD="sort -k3,3 -k4,4"
@@ -28,3 +45,7 @@ curl -s "https://api.github.com/users/${GITHUB_USER}/repos?per_page=100" \
 echo "# open https://github.com/$GITHUB_USER to reach repositories above."
 echo "# You can NOT try this command more than 60 times per an hour."
 # echo ""
+
+# ----------------------------------------------------------
+
+exit 0
