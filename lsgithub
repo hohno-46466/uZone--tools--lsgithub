@@ -3,49 +3,132 @@
 # lsgithub
 
 # Prev update: Tue Aug  6 10:13:40 JST 2019 by hohno
-# Last update: Thu Aug  8 06:26:36 JST 2019 by hohno
+# Prev update: Fri Aug 23 18:45:11 JST 2019 by hohno
+# Last update: Sat Aug 24 10:55:52 JST 2019
 
 # ----------------------------------------------------------
 
-abort () {
-    retCode=$1
-    shift
-    echo "$@" 1>&2
-    exit $retCode
-}
-
-# ----------------------------------------------------------
-
-jq=/usr/local/bin/jq
-
-[ -x "$jq" ] || abort 9 "$jq not found"
-
+# See also:
+# https://developer.github.com/v3/repos/#list-user-repositories
 
 # ----------------------------------------------------------
 
 GITHUB_USER=hohno-46466
+ACCESS_TOKEN="33cc8a7587c5d4592a1fcde1d9e44cd656f471d1"
 
 # ----------------------------------------------------------
 
-if [ "x$1" = "x-t" ]; then
-    CMD="sort -k3,3 -k4,4"
-elif [ "x$1" = "x-c" ]; then
-    CMD="sort -k1,1 -k2,2"
-else
-    CMD="cat"
+error_exit () {
+    echo "$1"
+    exit $2
+}
+
+# ----------------------------------------------------------
+
+usage () {
+    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others]"
+    echo "usage: $(basename $0) [-h|--help]"
+    exit $1
+}
+
+# ----------------------------------------------------------
+
+ggetopt=/usr/local/opt/gnu-getopt/bin/getopt
+jq=/usr/local/bin/jq
+
+[ -x "$jq" ] || error_exit "Can't find $jq" 1
+[ -x "$ggetopt" ] || error_exit "Can't find $ggetopt" 1
+
+REPO_TYPE="all"
+CMD1="sort -k5"
+CMD2="/usr/bin/cut -c43-"
+SORTOPT=
+JQ_OP='=='
+
+OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others -- "$@"`
+
+if [ "x$?" != "x0" ]; then
+    error_exit "gnu-getopt error" 2
+    exit 999 # Not reached.
 fi
 
-curl -s "https://api.github.com/users/${GITHUB_USER}/repos?per_page=100" \
-    | jq '.[] | .created_at, .updated_at, .name'  \
-    | awk '{{printf "%s  ",$0};if ((NR % 3) == 0){printf "\n"}}'  \
-    | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g'  \
-    | $CMD
+# echo "[$OPTS]"
+# // exit
+
+eval set -- "$OPTS"
+
+while true
+do
+    case "$1" in
+	--)
+	    shift
+	    break;;
+	-h|--help)
+	    usage;
+	    exit 999; # Not reached.
+	    break;;
+	-l)
+	    # -l
+	    CMD2="/bin/cat"
+	    shift;;
+	-c)
+	    # -c
+	    CMD1="sort -k1,1 -k2,2"
+	    shift;;
+	-t)
+	    # -t
+	    CMD1="sort -k3,3 -k4,4"
+	    shift;;
+	-r)
+	    # -r
+	    SORTOPT="-r"
+	    shift;;
+	--public)
+	    # public mode
+	    REPO_TYPE="public"
+	    shift;;
+	--private)
+	    # private mode
+	    REPO_TYPE="private"
+	    shift;;
+	--all|--everybody)
+	    # all mode
+	    JQ_OP='!='
+	    GITHUB_USER=""
+	    shift;;
+	--owner)
+	    # owner mode
+	    JQ_OP='=='
+	    shift;;
+	--others)
+	    # none owner mode
+	    JQ_OP='!='
+	    shift;;
+	*)
+	    error_exit "invalid argument: $1" 3
+	    exit 999 # Not reached.
+	    ;;
+    esac
+done
+
+CMD1="$CMD1 $SORTOPT"
+
+curl -s "https://api.github.com/user/repos?access_token=${ACCESS_TOKEN}&type=${REPO_TYPE}&per_page=100" \
+    | jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name'   \
+    | awk '{{printf "%s  ",$0};if ((NR % 3) == 0){printf "\n"}}' \
+    | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g' \
+    | $CMD1 \
+    | $CMD2
+
+# curl -s "https://api.github.com/users/${GITHUB_USER}/repos?per_page=100" \
+    #     | jq '.[] | .created_at, .updated_at, .name'  \
+    #     | awk '{{printf "%s  ",$0};if ((NR % 3) == 0){printf "\n"}}'  \
+    #     | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g'  \
+    #     | $CMD
 
 # echo ""
-echo "# open https://github.com/$GITHUB_USER to reach repositories above."
-echo "# You can NOT try this command more than 60 times per an hour."
+# echo "# open https://github.com/$GITHUB_USER to reach repositories above."
+# echo "# You can NOT try this command more than 60 times per an hour."
 # echo ""
 
-# ----------------------------------------------------------
-
-exit 0
+exit
