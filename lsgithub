@@ -2,9 +2,12 @@
 
 # lsgithub
 
-# Prev update: Tue Aug  6 10:13:40 JST 2019 by hohno
-# Prev update: Fri Aug 23 18:45:11 JST 2019 by hohno
-# Last update: Sat Aug 24 10:55:52 JST 2019
+# Prev update: Tue Aug  6 10:13:40 JST 2019 by @hohno_at_kuimc
+# Prev update: Fri Aug 23 18:45:11 JST 2019 by @hohno_at_kuimc
+# Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
+# Last update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
+
+# public domain
 
 # ----------------------------------------------------------
 
@@ -13,8 +16,8 @@
 
 # ----------------------------------------------------------
 
-GITHUB_USER="your_github_user_name"
-ACCESS_TOKEN="your_access_token"
+GITHUB_USER="XXXXXXXX"
+ACCESS_TOKEN="****************************************"
 
 # ----------------------------------------------------------
 
@@ -49,7 +52,7 @@ OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --lo
 
 if [ "x$?" != "x0" ]; then
     error_exit "gnu-getopt error" 2
-    exit 999 # Not reached.
+    exit 999 # /* NOT REACHED */
 fi
 
 # echo "[$OPTS]"
@@ -60,54 +63,54 @@ eval set -- "$OPTS"
 while true
 do
     case "$1" in
-	--)
-	    shift
-	    break;;
-	-h|--help)
-	    usage;
-	    exit 999; # Not reached.
-	    break;;
-	-l)
-	    # -l
-	    CMD2="/bin/cat"
-	    shift;;
-	-c)
-	    # -c
-	    CMD1="sort -k1,1 -k2,2"
-	    shift;;
-	-t)
-	    # -t
-	    CMD1="sort -k3,3 -k4,4"
-	    shift;;
-	-r)
-	    # -r
-	    SORTOPT="-r"
-	    shift;;
-	--public)
-	    # public mode
-	    REPO_TYPE="public"
-	    shift;;
-	--private)
-	    # private mode
-	    REPO_TYPE="private"
-	    shift;;
-	--all|--everybody)
-	    # all mode
-	    JQ_OP='!='
-	    GITHUB_USER=""
-	    shift;;
-	--owner)
-	    # owner mode
-	    JQ_OP='=='
-	    shift;;
-	--others)
-	    # none owner mode
-	    JQ_OP='!='
-	    shift;;
-	*)
-	    error_exit "invalid argument: $1" 3
-	    exit 999 # Not reached.
-	    ;;
+        --)
+            shift
+            break;;
+        -h|--help)
+            usage;
+            exit 999; # /* NOT REACHED */
+            break;;
+        -l)
+            # -l
+            CMD2="/bin/cat"
+            shift;;
+        -c)
+            # -c
+            CMD1="sort -k1,1 -k2,2"
+            shift;;
+        -t)
+            # -t
+            CMD1="sort -k3,3 -k4,4"
+            shift;;
+        -r)
+            # -r
+            SORTOPT="-r"
+            shift;;
+        --public)
+            # public mode
+            REPO_TYPE="public"
+            shift;;
+        --private)
+            # private mode
+            REPO_TYPE="private"
+            shift;;
+        --all|--everybody)
+            # all mode
+            JQ_OP='!='
+            GITHUB_USER=""
+            shift;;
+        --owner)
+            # owner mode
+            JQ_OP='=='
+            shift;;
+        --others)
+            # none owner mode
+            JQ_OP='!='
+            shift;;
+        *)
+            error_exit "invalid argument: $1" 3
+            exit 999 # /* NOT REACHED */
+            ;;
     esac
 done
 
