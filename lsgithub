@@ -25,18 +25,19 @@ SECRET_FILE="$HOME/.secret/lsgithub"
 # ACCESS_TOKEN="........"
 #
 if [ -r "$SECRET_FILE" ] ; then
-    eval $(cat "$SECRET_FILE" | \
-               expand | \
-               sed -n \
-               -e 's/^ *\(GITHUB_USER=[^ ]*\)[ ]*$/\1/p'  \
-               -e 's/^ *\(ACCESS_TOKEN=[^ ]*\)[ ]*$/\1/p' \
+   eval $(cat "$SECRET_FILE" \
+               | expand \
+               | sed -n \
+		     -e 's/^ *\(GITHUB_USER=[^ ]*\)[ ]*$/\1/p'  \
+		     -e 's/^ *\(ACCESS_TOKEN=[^ ]*\)[ ]*$/\1/p' \
+	       | sed -e 's/;.*$//g' \
         )
 fi
 
 [ "x$GITHUB_USER"  = "x" ] && GITHUB_USER="XXXXXXXX"
 [ "x$ACCESS_TOKEN" = "x" ] && ACCESS_TOKEN="PPPPPPPPPPPPPPPPPPPPP"
 
-# echo "[$GITHUB_USER]"
+# echo "[$GITHUB_USER]($afo)"
 # echo "[$ACCESS_TOKEN]"
 # exit
 
