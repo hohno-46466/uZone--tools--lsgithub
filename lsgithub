@@ -5,7 +5,8 @@
 # Prev update: Tue Aug  6 10:13:40 JST 2019 by @hohno_at_kuimc
 # Prev update: Fri Aug 23 18:45:11 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
-# Last update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
+# Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
+# Last update: Sat Aug 31 10:57:08 JST 2019 by @hohno_at_kuimc
 
 # public domain
 
@@ -16,8 +17,28 @@
 
 # ----------------------------------------------------------
 
-GITHUB_USER="XXXXXXXX"
-ACCESS_TOKEN="****************************************"
+SECRET_FILE="$HOME/.secret/lsgithub"
+#
+# Prepare the following lines in $SECRET_FILE
+#
+# GITHUB_USER="...."
+# ACCESS_TOKEN="........"
+#
+if [ -r "$SECRET_FILE" ] ; then
+    eval $(cat "$SECRET_FILE" | \
+               expand | \
+               sed -n \
+               -e 's/^ *\(GITHUB_USER=[^ ]*\)[ ]*$/\1/p'  \
+               -e 's/^ *\(ACCESS_TOKEN=[^ ]*\)[ ]*$/\1/p' \
+        )
+fi
+
+[ "x$GITHUB_USER"  = "x" ] && GITHUB_USER="XXXXXXXX"
+[ "x$ACCESS_TOKEN" = "x" ] && ACCESS_TOKEN="PPPPPPPPPPPPPPPPPPPPP"
+
+# echo "[$GITHUB_USER]"
+# echo "[$ACCESS_TOKEN]"
+# exit
 
 # ----------------------------------------------------------
 
