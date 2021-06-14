@@ -1,39 +1,38 @@
 # uZone--tools--lsgithub/README
-lsgithub
 
 ====
 
-## Overview
+## NAME
 
-(The quick brown fox jumps over the lazy dog)
+lsgithub - list GitHub repositories
 
-## Description
+## SYNOPSIS
 
-See 00README.txt
+lsgithub [ options ]
 
-## Requirement
+## DESCRIPTION
 
-none.
+## OPTIONS
 
-## Usage
+## RETURN VALUE
 
-none.
+ If lsgithub finds any problems, a non-zero exit code is returned.
+ 
+## BUGS
 
-## Installation
+Not reported but has some?
 
-none.
-
-## References
-
-none.
-
-## Licence
+## LICENSE
 
 undefined.
 
-## Author
+## AUTHOR(S)
 
 [hohno-46466](https://github.com/hohno-46466)
+
+## SEE ALSO
+
+See 00README.txt if prepared
 
 Mon Jun 14 23:29:52 JST 2021
 
