@@ -12,27 +12,37 @@ lsgithub [ options ]
 
 ## DESCRIPTION
 
-lsgithub is a utility for displaying information about your GitHub repositories
+lsgithub is a utility for displaying information about your GitHub repositories.
+lsgithub is written in shellscript.
 
 ## OPTIONS
 
 	-l
+		long format
 	
 	-c
+		sort by creation time
 	
 	-t
+		sort by last update time
 	
 	-r
+		sort in reverse order
 	
 	--public
+		search public repositories only
 	
 	--private
+		search private repositories only
 	
 	--all | --everybody
+		search both public and private repositories
 	
 	--owner
+		owner mode
 	
 	--others
+		none owner mode
 
 ## RETURN VALUE
 
