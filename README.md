@@ -12,7 +12,27 @@ lsgithub [ options ]
 
 ## DESCRIPTION
 
+lsgithub is a utility for displaying information about your GitHub repositories
+
 ## OPTIONS
+
+	-l
+	
+	-c
+	
+	-t
+	
+	-r
+	
+	--public
+	
+	--private
+	
+	--all | --everybody
+	
+	--owner
+	
+	--others
 
 ## RETURN VALUE
 
@@ -32,7 +52,7 @@ undefined.
 
 ## SEE ALSO
 
-See 00README.txt if prepared
+See 00README.txt if prepared.
 
 Mon Jun 14 23:29:52 JST 2021
 
