@@ -54,7 +54,7 @@ The following commands must be installed.
 ## RETURN VALUE
 
  If lsgithub finds any problems, a non-zero exit code is returned.
- 
+
 ## BUGS
 
 Not reported but has some?
@@ -65,7 +65,7 @@ undefined.
 
 ## AUTHOR(S)
 
-[hohno-46466](https://github.com/hohno-46466)
+[hohno-46466](https://github.com/hohno-46466)  (@hohno_at_kuimc)
 
 ## SEE ALSO
 
