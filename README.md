@@ -69,7 +69,7 @@ undefined.
 
 ## SEE ALSO
 
-See 00README.txt if prepared.
+See 00README.txt, if prepared.
 
 Mon Jun 14 23:29:52 JST 2021
 
