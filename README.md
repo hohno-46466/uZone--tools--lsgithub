@@ -44,6 +44,13 @@ lsgithub is written in shellscript.
 	--others
 		none owner mode
 
+## REQUIREMENT
+
+The following commands must be installed.
+
+* gnu getopt
+* jq
+
 ## RETURN VALUE
 
  If lsgithub finds any problems, a non-zero exit code is returned.
@@ -62,7 +69,7 @@ undefined.
 
 ## SEE ALSO
 
-See 00README.txt if prepared.
+See 00README.txt, if prepared.
 
 Mon Jun 14 23:29:52 JST 2021
 
