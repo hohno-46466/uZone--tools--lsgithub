@@ -17,7 +17,6 @@
 # https://developer.github.com/v3/repos/#list-user-repositories
 
 # ----------------------------------------------------------
-
 SECRET_FILE="$HOME/.secret/lsgithub"
 #
 # Prepare the following lines in $SECRET_FILE
