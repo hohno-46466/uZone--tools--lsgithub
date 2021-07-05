@@ -1,6 +1,6 @@
 # uZone--tools--lsgithub/README
 
-====
+This is a manual page of the lsgithub command.
 
 ## NAME
 
