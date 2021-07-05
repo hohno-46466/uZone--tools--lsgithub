@@ -62,8 +62,8 @@ Prepare your access token. Then your github user name and the access token must 
 GITHUB_USER=your_github_name
 ACCESS_TOKEN=your_acess_token
 
-The secret file is ~/.secret/lsgithub, but you can change it to another file by changing the SECRET_FILE variable in this lsgithub script.
-It is highly recommended to change the permissions of the directory where the secret file is located (~/.secret/ by default) to 700, and change the permissions of the secret file (~/.secret/lsgithub by default) to 600.
+The secret file is $HOME/.secret/lsgithub, but you can change it to another file by changing the SECRET_FILE variable in this lsgithub script.
+It is highly recommended to change the permissions of the directory where the secret file is located ($HOME/.secret/ by default) to 700, and change the permissions of the secret file ($HOME/.secret/lsgithub by default) to 600.
 
 You can learn how to get the access token here:
 https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
