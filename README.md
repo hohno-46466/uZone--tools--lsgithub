@@ -48,11 +48,29 @@ lsgithub is written in shellscript.
 
 The following commands must be installed.
 
-* gnu getopt
+* GNU getopt
 * jq
 
 You must set the full path name of the gnu getopt command to the ggetopt variable in this lsgithub script.
 Similarly, you must set the full pathname of the jq command properly in the jq variable.
+
+#### (GNU getopt command)
+
+   If you already have /usr/bin/getopt and it's a GNU getopt, you don't need to prepare GNU plot
+
+   If you don't and you are using macOS, install it by "brew install gnu-getopt"
+
+   If you are using Linux or WSL on Windows, you can insatll it by using apt command or similar package manager on your distribution.
+
+
+#### (JQ command)
+
+   If you don't have /usr/bin/jq, install it by yourself.
+
+   If you are using macOS and using homebrew, you can install it by "brew install jq"
+
+   If you are using Linux or WSL on Windows, you can install it by using apt command or similar package manager on your distribution.
+
 
 
 ## PREPARATION
