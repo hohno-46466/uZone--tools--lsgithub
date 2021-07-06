@@ -104,6 +104,6 @@ undefined.
 
 ## SEE ALSO
 
-See 00README.txt, if prepared.
+See also 00README.txt, if prepared.
 
 Mon Jun 14 23:29:52 JST 2021
