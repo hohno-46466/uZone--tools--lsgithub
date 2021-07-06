@@ -78,6 +78,7 @@ Similarly, you must set the full pathname of the jq command properly in the jq v
 Prepare your access token. Then your github user name and the access token must be written in the "secret file" with the following format:
 
 GITHUB_USER=your_github_name
+
 ACCESS_TOKEN=your_acess_token
 
 The secret file is $HOME/.secret/lsgithub, but you can change it to another file by changing the SECRET_FILE variable in this lsgithub script.
