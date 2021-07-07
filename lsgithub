@@ -7,7 +7,8 @@
 # Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Aug 31 10:57:08 JST 2019 by @hohno_at_kuimc
-# Last update: Sat Jun 19 06:28:16 JST 2021 by @hohno_at_kuimc on hohno-AX3-2020J
+# Prev update: Sat Jun 19 06:28:16 JST 2021 by @hohno_at_kuimc on hohno-AX3-2020J
+# Last update: Wed Jul  7 22:13:31 JST 2021
 
 # public domain
 
@@ -58,13 +59,18 @@ usage () {
 
 # ----------------------------------------------------------
 
+# IMPORTANT: set the full path of your gnu getopt and jq command
+
 # ggetopt=/usr/local/opt/gnu-getopt/bin/getopt
 ggetopt=/usr/bin/getopt
+
 # jq=/usr/local/bin/jq
 jq=/usr/bin/jq
 
 [ -x "$jq" ] || error_exit "Can't find $jq" 1
 [ -x "$ggetopt" ] || error_exit "Can't find $ggetopt" 1
+
+# ----------------------------------------------------------
 
 REPO_TYPE="all"
 CMD1="sort -k5"
