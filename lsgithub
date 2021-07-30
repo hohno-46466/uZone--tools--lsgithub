@@ -61,9 +61,11 @@ usage () {
 
 # IMPORTANT: set the full path of your gnu getopt and jq command
 
+# ggetopt=ggetopt
 # ggetopt=/usr/local/opt/gnu-getopt/bin/getopt
 ggetopt=/usr/bin/getopt
 
+# jq=jq
 # jq=/usr/local/bin/jq
 jq=/usr/bin/jq
 
