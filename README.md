@@ -1,4 +1,4 @@
-# uZone--tools--lsgithub/README
+# GitHub/uZone--tools--lsgithub/README
 
 This is a manual page of the lsgithub command.
 
@@ -107,3 +107,5 @@ undefined.
 See also 00README.txt, if prepared.
 
 Mon Jun 14 23:29:52 JST 2021
+
+-EOF-
