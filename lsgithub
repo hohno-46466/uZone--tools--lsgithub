@@ -61,9 +61,11 @@ usage () {
 
 # IMPORTANT: set the full path of your gnu getopt and jq command
 
+# ggetopt=ggetopt
 # ggetopt=/usr/local/opt/gnu-getopt/bin/getopt
 ggetopt=/usr/bin/getopt
 
+# jq=jq
 # jq=/usr/local/bin/jq
 jq=/usr/bin/jq
 
@@ -147,7 +149,7 @@ done
 CMD1="$CMD1 $SORTOPT"
 
 curl -s "https://api.github.com/user/repos?access_token=${ACCESS_TOKEN}&type=${REPO_TYPE}&per_page=100" \
-    | jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name'   \
+    | $jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name'   \
     | awk '{{printf "%s  ",$0};if ((NR % 3) == 0){printf "\n"}}' \
     | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g' \
     | $CMD1 \
