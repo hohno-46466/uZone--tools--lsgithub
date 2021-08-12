@@ -8,7 +8,8 @@
 # Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Aug 31 10:57:08 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Jun 19 06:28:16 JST 2021 by @hohno_at_kuimc on hohno-AX3-2020J
-# Last update: Wed Jul  7 22:13:31 JST 2021
+# Prev update: Wed Jul  7 22:13:31 JST 2021 by @hohno_at_kuimc
+# Last update: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
 
 # public domain
 
@@ -16,8 +17,11 @@
 
 # See also:
 # https://developer.github.com/v3/repos/#list-user-repositories
+# https://developer.github.com/changes/2020-02-10-deprecating-auth-through-query-param/
+# https://docs.github.com/en/rest/overview/resources-in-the-rest-api
 
 # ----------------------------------------------------------
+
 SECRET_FILE="$HOME/.secret/lsgithub"
 #
 # Prepare the following lines in $SECRET_FILE
@@ -148,7 +152,9 @@ done
 
 CMD1="$CMD1 $SORTOPT"
 
-curl -s "https://api.github.com/user/repos?access_token=${ACCESS_TOKEN}&type=${REPO_TYPE}&per_page=100" \
+# echo curl -s "https://api.github.com/user/repos?access_token=${ACCESS_TOKEN}&type=${REPO_TYPE}&per_page=100" \
+
+curl -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100" \
     | $jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name'   \
     | awk '{{printf "%s  ",$0};if ((NR % 3) == 0){printf "\n"}}' \
     | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g' \
