@@ -22,7 +22,7 @@
 
 # ----------------------------------------------------------
 
-SECRET_FILE="$HOME/.secret/lsgithub"
+SECRET_FILE="$HOME/.secret/github"
 #
 # Prepare the following lines in $SECRET_FILE
 #
