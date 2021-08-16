@@ -62,7 +62,6 @@ Similarly, you must set the full pathname of the jq command properly in the jq v
 
    If you are using Linux or WSL on Windows, you can insatll it by using apt command or similar package manager on your distribution.
 
-
 #### (JQ command)
 
    If you don't have /usr/bin/jq, install it by yourself.
@@ -70,8 +69,6 @@ Similarly, you must set the full pathname of the jq command properly in the jq v
    If you are using macOS and using homebrew, you can install it by "brew install jq"
 
    If you are using Linux or WSL on Windows, you can install it by using apt command or similar package manager on your distribution.
-
-
 
 ## PREPARATION
 
@@ -109,5 +106,7 @@ See also 00README.txt, if prepared.
 Mon Jun 14 23:29:52 JST 2021
 
 Note: 	url = https://github.com/hohno-46466/uZone--tools--lsgithub
+
+Note:   url = git@github.com:hohno-46466/uZone--tools--lsgithub.git
 
 -EOF-
