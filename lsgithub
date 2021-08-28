@@ -68,6 +68,7 @@ usage () {
 
 # ggetopt=ggetopt
 # ggetopt=/usr/local/opt/gnu-getopt/bin/getopt
+# ggetopt=/usr/local/bin/gnu-getopt
 ggetopt=/usr/bin/getopt
 
 # jq=jq
@@ -93,7 +94,7 @@ if [ "x$?" != "x0" ]; then
 fi
 
 # echo "[$OPTS]"
-# // exit
+# exit
 
 eval set -- "$OPTS"
 
