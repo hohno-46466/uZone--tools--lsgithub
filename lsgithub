@@ -9,8 +9,9 @@
 # Prev update: Sat Aug 31 10:57:08 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Jun 19 06:28:16 JST 2021 by @hohno_at_kuimc on hohno-AX3-2020J
 # Prev update: Wed Jul  7 22:13:31 JST 2021 by @hohno_at_kuimc
-# PRev update: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
-# Last update: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
+# Prev update: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
+# Prev update: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
+# Last update: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
 
 # public domain
 
@@ -57,7 +58,7 @@ error_exit () {
 # ----------------------------------------------------------
 
 usage () {
-    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others]"
+    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others] [--ssh|--https]"
     echo "usage: $(basename $0) [-h|--help]"
     exit $1
 }
@@ -66,17 +67,20 @@ usage () {
 
 # IMPORTANT: set the full path of your gnu getopt and jq command
 
-# ggetopt=ggetopt
-# ggetopt=/usr/local/opt/gnu-getopt/bin/getopt
+# # ggetopt=ggetopt
 # ggetopt=/usr/local/bin/gnu-getopt
-ggetopt=/usr/bin/getopt
+# # ggetopt=/usr/bin/getopt
+#
+# # jq=jq
+# # jq=/usr/local/bin/jq
+# jq=/usr/bin/jq
 
-# jq=jq
-# jq=/usr/local/bin/jq
-jq=/usr/bin/jq
+[ "x$(which jq)" = "x" ] && error_exit "Can't find jq"
+jq=$(which jq)
 
-[ -x "$jq" ] || error_exit "Can't find $jq" 1
-[ -x "$ggetopt" ] || error_exit "Can't find $ggetopt" 1
+[ "x$(which getopt)" != "x" ] && ggetopt=$(which getopt)
+[ "x$(which gnu-getopt)" != "x" ] && ggetopt=$(which gnu-getopt)
+[ "x$ggetopt)" = "x" ] && error_exit "Can't find getopt nor gnu-getopt"
 
 # ----------------------------------------------------------
 
@@ -152,13 +156,13 @@ do
             # SSH style
 	    STYLE=1
             CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/git@github.com:hohno-46466\//' -e 's/ *$/.git/'" 
+            CMD3="sed -e 's/^/git@github.com:hohno-46466\//' -e 's/ *$/.git/'"
             shift;;
         --https)
             # HTTPS style
 	    STYLE=2
             CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/https:\/\/github.com\/hohno-46466\//' -e 's/ *$/.git/'" 
+            CMD3="sed -e 's/^/https:\/\/github.com\/hohno-46466\//' -e 's/ *$/.git/'"
             shift;;
         *)
             error_exit "invalid argument: $1" 3
