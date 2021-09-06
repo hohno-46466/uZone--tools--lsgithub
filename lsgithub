@@ -83,7 +83,7 @@ jq=$(which jq)
 
 [ "x$(which getopt)" != "x" ] && ggetopt=$(which getopt)
 [ "x$(which gnu-getopt)" != "x" ] && ggetopt=$(which gnu-getopt)
-[ "x$ggetopt)" = "x" ] && error_exit "Can't find getopt nor gnu-getopt"
+[ "x$ggetopt" = "x" ] && error_exit "Can't find getopt nor gnu-getopt"
 
 # ----------------------------------------------------------
 
