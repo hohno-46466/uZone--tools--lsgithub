@@ -24,6 +24,8 @@
 
 # ----------------------------------------------------------
 
+# Caveat: Prepare "jq" and "gnu getopt" command and make them ready to be invoked only by the name 
+
 SECRET_FILE="$HOME/.secret/github"
 #
 # Prepare the following lines in $SECRET_FILE
@@ -68,15 +70,13 @@ usage () {
 
 # ----------------------------------------------------------
 
-# IMPORTANT: set the full path of your gnu getopt and jq command
-
-# # ggetopt=ggetopt
-# ggetopt=/usr/local/bin/gnu-getopt
-# # ggetopt=/usr/bin/getopt
-#
-# # jq=jq
-# # jq=/usr/local/bin/jq
-# jq=/usr/bin/jq
+#obsolete# # ggetopt=ggetopt
+#obsolete# ggetopt=/usr/local/bin/gnu-getopt
+#obsolete# # ggetopt=/usr/bin/getopt
+#obsolete#
+#obsolete# # jq=jq
+#obsolete# # jq=/usr/local/bin/jq
+#obsolete# jq=/usr/bin/jq
 
 [ "x$(which jq)" = "x" ] && error_exit "Can't find jq"
 jq=$(which jq)
