@@ -44,6 +44,15 @@ lsgithub is written in shellscript.
 	--others
 		none owner mode
 
+	--ssh
+		use "git@github.com:*.git" style
+
+	--https
+		use "https://github.com/*.git" style
+
+	--clone
+		use "git clone git@github.com:*.git" style
+
 ## REQUIREMENT
 
 The following commands must be installed.
