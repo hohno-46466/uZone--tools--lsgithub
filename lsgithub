@@ -11,7 +11,8 @@
 # Prev update: Wed Jul  7 22:13:31 JST 2021 by @hohno_at_kuimc
 # Prev update: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
 # Prev update: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
-# Last update: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
+# Prev update: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
+# Last update: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
 
 # public domain
 
@@ -95,7 +96,7 @@ SORTOPT=
 JQ_OP='=='
 STYLE=0
 
-OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https -- "$@"`
+OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone -- "$@"`
 
 if [ "x$?" != "x0" ]; then
     error_exit "gnu-getopt error" 2
@@ -166,6 +167,12 @@ do
 	    STYLE=2
             CMD2="/usr/bin/cut -c43-"
             CMD3="sed -e 's/^/https:\/\/github.com\/hohno-46466\//' -e 's/ *$/.git/'"
+            shift;;
+        --clone)
+            # git clone style
+	    STYLE=3
+            CMD2="/usr/bin/cut -c43-"
+            CMD3="sed -e 's/^/git clone git@github.com:hohno-46466\//' -e 's/ *$/.git/'"
             shift;;
         *)
             error_exit "invalid argument: $1" 3
