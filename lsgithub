@@ -95,6 +95,7 @@ CMD3="/bin/cat"
 SORTOPT=
 JQ_OP='=='
 STYLE=0
+GITHUBUSER=hohno-46466
 
 OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone -- "$@"`
 
@@ -160,19 +161,23 @@ do
             # SSH style
 	    STYLE=1
             CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/git@github.com:hohno-46466\//' -e 's/ *$/.git/'"
+            CMD3="sed -e 's/^/git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         --https)
             # HTTPS style
 	    STYLE=2
             CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/https:\/\/github.com\/hohno-46466\//' -e 's/ *$/.git/'"
+            CMD3="sed -e 's/^/https:\/\/github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         --clone)
             # git clone style
 	    STYLE=3
             CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/git clone git@github.com:hohno-46466\//' -e 's/ *$/.git/'"
+	    if [ "$STYLE" -le 1 ]; then
+              CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+            else
+              CMD3="sed -e 's/^/git https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
+	    fi    
             shift;;
         *)
             error_exit "invalid argument: $1" 3
