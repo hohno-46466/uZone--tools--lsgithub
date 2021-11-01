@@ -18,40 +18,40 @@ lsgithub is written in shellscript.
 ## OPTIONS
 
 	-l
-		long format
+		use a long listing format
 
 	-c
 		sort by creation time
 
 	-t
-		sort by last update time
+		sort by modification time
 
 	-r
-		sort in reverse order
+		reverse order while sorting
 
 	--public
-		search public repositories only
+		show public repository only
 
 	--private
-		search private repositories only
+		show private repository only
 
 	--all | --everybody
 		search both public and private repositories
 
 	--owner
-		owner mode
+		owner mode (show owned repositories only)
 
 	--others
-		none owner mode
+		none owner mode (do not show owned repositories)
 
 	--ssh
-		use "git@github.com:*.git" style
+		use SSH format (use "git@github.com:*.git" style)
 
 	--https
-		use "https://github.com/*.git" style
+		use HTTPS format (use "https://github.com/*.git" style)
 
 	--clone
-		use "git clone git@github.com:*.git" style
+		use use "git clone" style
 
 ## REQUIREMENT
 
