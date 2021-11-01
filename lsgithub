@@ -12,7 +12,8 @@
 # Prev update: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
 # Prev update: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
 # Prev update: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
-# Last update: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
+# Prev update: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
+# Last update: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option added 
 
 # public domain
 
@@ -64,7 +65,7 @@ error_exit () {
 # ----------------------------------------------------------
 
 usage () {
-    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others] [--ssh|--https|--clone]"
+    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others] [--ssh|--https] [--clone]"
     echo "usage: $(basename $0) [-h|--help]"
     exit $1
 }
@@ -94,7 +95,8 @@ CMD2="/usr/bin/cut -c43-"
 CMD3="/bin/cat"
 SORTOPT=
 JQ_OP='=='
-STYLE=0
+STYLE1=0
+STYLE2=0
 GITHUBUSER=hohno-46466
 
 OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone -- "$@"`
@@ -159,27 +161,27 @@ do
             shift;;
         --ssh)
             # SSH style
-	    STYLE=1
-            CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+	    STYLE1=1
+            # CMD2="/usr/bin/cut -c43-"
+            # CMD3="sed -e 's/^/git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         --https)
             # HTTPS style
-	    STYLE=2
-            CMD2="/usr/bin/cut -c43-"
-            CMD3="sed -e 's/^/https:\/\/github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
+	    STYLE1=2
+            # CMD2="/usr/bin/cut -c43-"
+            # CMD3="sed -e 's/^/https:\/\/github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         --clone)
             # git clone style
-	    STYLE=3
-            CMD2="/usr/bin/cut -c43-"
-	    # if [ "$STYLE" -gt 1 ]; then
-            #   CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
-            # else
-            #   CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
-	    # fi    
-            CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
-            # CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
+	    STYLE2=1
+            # CMD2="/usr/bin/cut -c43-"
+	    # # if [ "$STYLE1" -gt 1 ]; then
+            # #   CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
+            # # else
+            # #   CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+	    # # fi    
+            # CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+            # # CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         *)
             error_exit "invalid argument: $1" 3
@@ -188,7 +190,29 @@ do
     esac
 done
 
+if [ "x$STYLE1" = "x1" -a "x$STYLE2" = "x0" ] ; then
+    CMD2="/usr/bin/cut -c43-"
+    CMD3="sed -e 's/^/git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+
+elif [ "x$STYLE1" = "x2" -a "x$STYLE2" = "x0" ] ; then
+    CMD2="/usr/bin/cut -c43-"
+    CMD3="sed -e 's/^/https:\/\/github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
+
+elif [ "x$STYLE1" = "x1" -a "x$STYLE2" = "x1" ] ; then
+    CMD2="/usr/bin/cut -c43-"
+    CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+
+elif [ "x$STYLE1" = "x2" -a "x$STYLE2" = "x1" ] ; then
+    CMD2="/usr/bin/cut -c43-"
+    CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
+
+elif [ "x$STYLE2" = "x1" ] ; then
+    CMD2="/usr/bin/cut -c43-"
+    CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
+fi
+
 # echo "[$CMD3]"
+# exit 9
 
 CMD1="$CMD1 $SORTOPT"
 
