@@ -13,7 +13,7 @@
 # Prev update: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
 # Prev update: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
 # Prev update: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
-# Last update: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option added 
+# Last update: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option updated 
 
 # public domain
 
@@ -28,7 +28,12 @@
 
 # Caveat: Prepare "jq" and "gnu getopt" command and make them ready to be invoked only by the name 
 
+# ----------------------------------------------------------
+
+GITHUBUSER=hohno-46466
+
 SECRET_FILE="$HOME/.secret/github"
+
 #
 # Prepare the following lines in $SECRET_FILE
 #
@@ -45,11 +50,15 @@ if [ -r "$SECRET_FILE" ] ; then
         )
 fi
 
-[ "x$GITHUB_USER"  = "x" ] && echo "*** Warning: Can't find correct secret file ***"
-[ "x$ACCESS_TOKEN" = "x" ] && echo "*** Warning: Can't find correct secret file ***"
+if [ "x$GITHUB_USER"  = "x" ]; then
+  echo "*** Warning: Can't find correct secret file. Using default user name ***"
+  GITHUB_USER="XXXXXXXX"
+fi
 
-[ "x$GITHUB_USER"  = "x" ] && GITHUB_USER="XXXXXXXX"
-[ "x$ACCESS_TOKEN" = "x" ] && ACCESS_TOKEN="PPPPPPPPPPPPPPPPPPPPP"
+if [ "x$ACCESS_TOKEN" = "x" ]; then
+  echo "*** Warning: Can't find correct secret file. Using default token ***"
+  ACCESS_TOKEN="PPPPPPPPPPPPPPPPPPPPP"
+fi
 
 # echo "[$GITHUB_USER]($afo)"
 # echo "[$ACCESS_TOKEN]"
@@ -58,7 +67,7 @@ fi
 # ----------------------------------------------------------
 
 error_exit () {
-    echo "$1"
+    echo "Error: $1"
     exit $2
 }
 
@@ -72,17 +81,11 @@ usage () {
 
 # ----------------------------------------------------------
 
-#obsolete# # ggetopt=ggetopt
-#obsolete# ggetopt=/usr/local/bin/gnu-getopt
-#obsolete# # ggetopt=/usr/bin/getopt
-#obsolete#
-#obsolete# # jq=jq
-#obsolete# # jq=/usr/local/bin/jq
-#obsolete# jq=/usr/bin/jq
-
+# Search for jq command
 [ "x$(which jq)" = "x" ] && error_exit "Can't find jq"
 jq=$(which jq)
 
+# Search for getopt command
 [ "x$(which getopt)" != "x" ] && ggetopt=$(which getopt)
 [ "x$(which gnu-getopt)" != "x" ] && ggetopt=$(which gnu-getopt)
 [ "x$ggetopt" = "x" ] && error_exit "Can't find getopt nor gnu-getopt"
@@ -97,13 +100,12 @@ SORTOPT=
 JQ_OP='=='
 STYLE1=0
 STYLE2=0
-GITHUBUSER=hohno-46466
 
 OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone -- "$@"`
 
 if [ "x$?" != "x0" ]; then
     error_exit "gnu-getopt error" 2
-    exit 999 # /* NOT REACHED */
+    # /* NOT REACHED */
 fi
 
 # echo "[$OPTS]"
@@ -119,73 +121,61 @@ do
             break;;
         -h|--help)
             usage;
-            exit 999; # /* NOT REACHED */
+            # /* NOT REACHED */
             break;;
         -l)
-            # -l
+            # -l : use a long listing format
             CMD2="/bin/cat"
             CMD3="/bin/cat"
             shift;;
         -c)
-            # -c
+            # -c : sort by creation time
             CMD1="sort -k1,1 -k2,2"
             shift;;
         -t)
-            # -t
+            # -t : sort by modification time
             CMD1="sort -k3,3 -k4,4"
             shift;;
         -r)
-            # -r
+            # -r : reverse order while sorting
             SORTOPT="-r"
             shift;;
         --public)
-            # public mode
+	    # --public : public mode (show public repository only)
             REPO_TYPE="public"
             shift;;
         --private)
-            # private mode
+	    # --private : private mode (show private repository only)
             REPO_TYPE="private"
             shift;;
         --all|--everybody)
-            # all mode
+	    # --all : all mode (show all repositories)
             JQ_OP='!='
             GITHUB_USER=""
             shift;;
         --owner)
-            # owner mode
+	    # --owner : owner mode (show owned repositories only)
             JQ_OP='=='
             shift;;
         --others)
-            # none owner mode
+	    # --others : none owner mode (do not show owned repositories)
             JQ_OP='!='
             shift;;
         --ssh)
-            # SSH style
+            # --ssh : use SSH format
 	    STYLE1=1
-            # CMD2="/usr/bin/cut -c43-"
-            # CMD3="sed -e 's/^/git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         --https)
-            # HTTPS style
+            # --https : use HTTPS format
 	    STYLE1=2
-            # CMD2="/usr/bin/cut -c43-"
-            # CMD3="sed -e 's/^/https:\/\/github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         --clone)
-            # git clone style
+            # --clone : use "git clone" style
 	    STYLE2=1
-            # CMD2="/usr/bin/cut -c43-"
-	    # # if [ "$STYLE1" -gt 1 ]; then
-            # #   CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
-            # # else
-            # #   CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
-	    # # fi    
-            # CMD3="sed -e 's/^/git clone git@github.com:${GITHUBUSER}\//' -e 's/ *$/.git/'"
-            # # CMD3="sed -e 's/^/git clone https:\/\/git@github.com\/${GITHUBUSER}\//' -e 's/ *$/.git/'"
             shift;;
         *)
             error_exit "invalid argument: $1" 3
-            exit 999 # /* NOT REACHED */
+            # /* NOT REACHED */
             ;;
     esac
 done
