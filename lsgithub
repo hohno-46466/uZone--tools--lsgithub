@@ -2,6 +2,10 @@
 
 # lsgithub
 
+# public domain
+
+# ----------------------------------------------------------
+
 # Prev update: Tue Aug  6 10:13:40 JST 2019 by @hohno_at_kuimc
 # Prev update: Fri Aug 23 18:45:11 JST 2019 by @hohno_at_kuimc
 # Prev update: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
@@ -14,9 +18,7 @@
 # Prev update: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
 # Prev update: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
 # Prev update: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option updated 
-# Last update: Sun Jun  5 16:49:31 JST 2022 by @hohno_at_kuimc
-
-# public domain
+# Last update: Sun Jun  5 16:49:31 JST 2022 by @hohno_at_kuimc // curl repeats multiple times until all data read
 
 # ----------------------------------------------------------
 
