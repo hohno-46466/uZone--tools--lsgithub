@@ -53,6 +53,13 @@ lsgithub is written in shellscript.
 	--clone
 		use use "git clone" style
 
+
+	-q | --quiet
+		quiet mode
+
+	-d | --debug
+		debug mode
+
 ## REQUIREMENT
 
 The following commands must be installed.
