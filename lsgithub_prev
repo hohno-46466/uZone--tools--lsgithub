@@ -31,32 +31,9 @@
 
 # ----------------------------------------------------------
 
-error_exit () {
-    echo "Error: $1"
-    exit $2
-}
-
-# ----------------------------------------------------------
-
-usage () {
-    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others] [--ssh|--https] [--clone] [-q|--quiet]"
-    echo "usage: $(basename $0) [-h|--help]"
-    exit $1
-}
-
-# ----------------------------------------------------------
-
 GITHUBUSER=hohno-46466
 
 SECRET_FILE="$HOME/.secret/github"
-
-TMPFILE="/tmp/lsgithub.tmp"
-
-[ -e "$TMPFILE" ] && /bin/rm -f "$TMPFILE"
-[ -e "$TMPFILE" ] && error_exit "Can't prepare $TMPFILE" 8
-
-touch "$TMPFILE"
-[ ! -e "$TMPFILE" ] && error_exit "Can't prepare $TMPFILE" 9
 
 #
 # Prepare the following lines in $SECRET_FILE
@@ -90,14 +67,29 @@ fi
 
 # ----------------------------------------------------------
 
+error_exit () {
+    echo "Error: $1"
+    exit $2
+}
+
+# ----------------------------------------------------------
+
+usage () {
+    echo "usage: $(basename $0) [-l] [-c] [-t] [-r] [--public] [--private] [--all|--everybody] [--owner] [--others] [--ssh|--https] [--clone]"
+    echo "usage: $(basename $0) [-h|--help]"
+    exit $1
+}
+
+# ----------------------------------------------------------
+
 # Search for jq command
-[ "x$(which jq)" = "x" ] && error_exit "Can't find jq" 1
+[ "x$(which jq)" = "x" ] && error_exit "Can't find jq"
 jq=$(which jq)
 
 # Search for getopt command
 [ "x$(which getopt)" != "x" ] && ggetopt=$(which getopt)
 [ "x$(which gnu-getopt)" != "x" ] && ggetopt=$(which gnu-getopt)
-[ "x$ggetopt" = "x" ] && error_exit "Can't find getopt nor gnu-getopt" 2
+[ "x$ggetopt" = "x" ] && error_exit "Can't find getopt nor gnu-getopt"
 
 # ----------------------------------------------------------
 
@@ -109,13 +101,11 @@ SORTOPT=
 JQ_OP='=='
 STYLE1=0
 STYLE2=0
-VERBOSE="Y"
-DEBUG="0"
 
-OPTS=`$ggetopt -o lctrhqd --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone --long quiet --long debug -- "$@"`
+OPTS=`$ggetopt -o lctrh --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone -- "$@"`
 
 if [ "x$?" != "x0" ]; then
-    error_exit "gnu-getopt error" 3
+    error_exit "gnu-getopt error" 2
     # /* NOT REACHED */
 fi
 
@@ -184,16 +174,8 @@ do
             # --clone : use "git clone" style
             STYLE2=1
             shift;;
-        -q|--quiet)
-            # -q | --quiet : quiet mode
-            VERBOSE=""
-            shift;;
-        -d|--debug)
-            # -d | --debug : debug mode
-	    DEBUG=$(($DEBUG + 1))
-            shift;;
         *)
-            error_exit "invalid argument: $1" 4
+            error_exit "invalid argument: $1" 3
             # /* NOT REACHED */
             ;;
     esac
@@ -226,21 +208,9 @@ fi
 CMD1="$CMD1 $SORTOPT"
 
 # echo curl -s "https://api.github.com/user/repos?access_token=${ACCESS_TOKEN}&type=${REPO_TYPE}&per_page=100" \
-# curl -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100" 2> /dev/null \
 
-
-x=0
-while [ 1 ]; do
-    x=$(($x + 1 ))
-    rm -f  "$TMPFILE"; touch "$TMPFILE"
-    [ "x$VERBOSE" != "x" ] && echo curl -H '"'"Authorization: token ACCESS_TOKEN"'"' '"'"https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x""'" 1>&2
-    curl -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x" 2> /dev/null \
-    | jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name' \
-    | tee "$TMPFILE"
-    z="$(cat $TMPFILE | wc -l | sed 's/ //g')"
-    [ $DEBUG -ge 1 ] && echo "debug: page $x : $z lines ($TMPFILE)" 1>&2
-    [ $z -eq 0 ] && break;
-done \
+curl -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100" 2> /dev/null \
+| $jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name'   \
 | awk '{{printf "%s  ",$0};if ((NR % 3) == 0){printf "\n"}}' \
 | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g' \
 | eval $CMD1 \
@@ -258,12 +228,4 @@ done \
 # echo "# You can NOT try this command more than 60 times per an hour."
 # echo ""
 
-exit $?
-
-
-
-# | wc 
-
 exit
-#    | jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name' \
-
