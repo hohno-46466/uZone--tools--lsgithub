@@ -116,7 +116,7 @@ STYLE2=0
 VERBOSE="Y"
 DEBUG="0"
 
-OPTS=`$ggetopt -o lctrhqd --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone --long quiet --long debug -- "$@"`
+OPTS=$($ggetopt -o lctrhqd --long help --long public --long private --long all --long everybody --long owner --long others --long ssh --long https --long clone --long quiet --long debug -- "$@")
 
 if [ "x$?" != "x0" ]; then
     error_exit "gnu-getopt error" 3
