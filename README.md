@@ -1,4 +1,4 @@
-# GitHub/uZone--tools--lsgithub/README.txt - lsgithub
+# GitHub/uZone--tools--lsgithub - lsgithub
 
 lsgithub
 
