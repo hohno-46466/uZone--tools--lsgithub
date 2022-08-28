@@ -6,20 +6,20 @@
 
 # ----------------------------------------------------------
 
-# Prev modified: Tue Aug  6 10:13:40 JST 2019 by @hohno_at_kuimc
-# Prev modified: Fri Aug 23 18:45:11 JST 2019 by @hohno_at_kuimc
-# Prev modified: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
-# Prev modified: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
-# Prev modified: Sat Aug 31 10:57:08 JST 2019 by @hohno_at_kuimc
-# Prev modified: Sat Jun 19 06:28:16 JST 2021 by @hohno_at_kuimc on hohno-AX3-2020J
-# Prev modified: Wed Jul  7 22:13:31 JST 2021 by @hohno_at_kuimc
-# Prev modified: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
-# Prev modified: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
-# Prev modified: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
-# Prev modified: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
-# Prev modified: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option updated 
-# Prev modified: Sun Jun  5 16:49:31 JST 2022 by @hohno_at_kuimc // curl repeats multiple times until all data read
-# Last modified: Sat Jul 30 05:13:36 JST 2022 by @hohno_at_kuimc // modified for macOS Monterey with homebrew
+# Prev Modified: Tue Aug  6 10:13:40 JST 2019 by @hohno_at_kuimc
+# Prev Modified: Fri Aug 23 18:45:11 JST 2019 by @hohno_at_kuimc
+# Prev Modified: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
+# Prev Modified: Sat Aug 24 10:55:52 JST 2019 by @hohno_at_kuimc
+# Prev Modified: Sat Aug 31 10:57:08 JST 2019 by @hohno_at_kuimc
+# Prev Modified: Sat Jun 19 06:28:16 JST 2021 by @hohno_at_kuimc on hohno-AX3-2020J
+# Prev Modified: Wed Jul  7 22:13:31 JST 2021 by @hohno_at_kuimc
+# Prev Modified: Thu Aug 12 23:47:07 JST 2021 by @hohno_at_kuimc // Deprecating API authentication through query parameters
+# Prev Modified: Sun Aug 15 22:57:29 JST 2021 by @hohno_at_kuimc
+# Prev Modified: Mon Aug 30 21:02:58 JST 2021 by @hohno_at_kuimc
+# Prev Modified: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
+# Prev Modified: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option updated 
+# Prev Modified: Sun Jun  5 16:49:31 JST 2022 by @hohno_at_kuimc // curl repeats multiple times until all data read
+# Last Modified: Sat Jul 30 05:13:36 JST 2022 by @hohno_at_kuimc // modified for macOS Monterey with homebrew
 
 # ----------------------------------------------------------
 
