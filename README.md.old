@@ -2,7 +2,7 @@
 
 lsgithub
 
-    ./uZone--tools--lsgithub
+     ./uZone--tools--lsgithub
      ├──  00doit.sh
      ├──  MANPAGE.md
      ├──  README.md
@@ -10,7 +10,7 @@ lsgithub
      ├──  lsgithub
      └──  lsgithub_prev
      
-     0 directories, 6 files (Mon Sep  5 19:33:11 JST 2022)
+     0 directories, 6 files (Fri Sep  9 06:46:39 JST 2022)
 
 
 Note: URL = https://github.com/hohno-46466/uZone--tools--lsgithub
