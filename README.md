@@ -10,7 +10,7 @@ lsgithub
      ├──  lsgithub
      └──  lsgithub_prev
      
-     0 directories, 6 files (Thu Nov 17 15:15:43 JST 2022)
+     0 directories, 6 files (Sun Nov 20 00:11:36 JST 2022)
 
 
 Note: URL = https://github.com/hohno-46466/uZone--tools--lsgithub
