@@ -1,6 +1,6 @@
 #!/bin/sh -u
 
-# Last updated: Wed Oct 27 06:38:35 JST 2021 by @hohno_at_kuimc
+# Last update: Wed Oct 27 06:38:35 JST 2021 by @hohno_at_kuimc
 
 PNAME=$(basename $0)
 # echo "$PNAME"
