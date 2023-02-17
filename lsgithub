@@ -19,7 +19,8 @@
 # Prev update: Fri Sep 17 06:02:33 JST 2021 by @hohno_at_kuimc // --clone option added
 # Prev update: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option updated 
 # Prev update: Sun Jun  5 16:49:31 JST 2022 by @hohno_at_kuimc // curl repeats multiple times until all data read
-# Last update: Sat Jul 30 05:13:36 JST 2022 by @hohno_at_kuimc // modified for macOS Monterey with homebrew
+# Prev update: Sat Jul 30 05:13:36 JST 2022 by @hohno_at_kuimc // modified for macOS Monterey with homebrew
+# Last update: Fri Feb 17 05:24:53 AST 2023 by @hohno_at_kuimc
 
 # ----------------------------------------------------------
 
@@ -251,7 +252,8 @@ done \
 | sed -e 's/"//g'  -e 's/\(-[0-9][0-9]\)T\([0-9][0-9]:\)/\1 \2/g' -e 's/Z  /  /g' \
 | eval $CMD1 \
 | eval $CMD2 \
-| eval $CMD3
+| eval $CMD3 \
+| sed -e 's/ *$//'
 
 # curl -s "https://api.github.com/users/${GITHUB_USER}/repos?per_page=100" \
 #     | jq '.[] | .created_at, .updated_at, .name'  \
