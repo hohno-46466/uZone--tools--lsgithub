@@ -1,0 +1,20 @@
+#
+# How to install this script
+#
+
+Prepare jq and get opt
+
+Prepare ~/.secret/github
+
+Try the followings:
+
+$ cd
+$ mkdir workspace
+$ cd workspace
+$ git clone https://github.com/hohno-46466/uZone--tools--lsgithub
+$ cd uZone--tools--lsgithub
+
+Now ./lsgithub is ready
+
+--
+
