@@ -20,7 +20,8 @@
 # Prev update: Mon Nov  1 23:47:46 JST 2021 by @hohno_at_kuimc // --clone option updated 
 # Prev update: Sun Jun  5 16:49:31 JST 2022 by @hohno_at_kuimc // curl repeats multiple times until all data read
 # Prev update: Sat Jul 30 05:13:36 JST 2022 by @hohno_at_kuimc // modified for macOS Monterey with homebrew
-# Last update: Fri Feb 17 05:24:53 AST 2023 by @hohno_at_kuimc
+# Prev update: Fri Feb 17 05:24:53 AST 2023 by @hohno_at_kuimc
+# Last update: Tue 13 May 2025 07:27:05 AM JST by @hohno_at_kuimc // minor but important update
 
 # ----------------------------------------------------------
 
@@ -32,7 +33,7 @@
 
 # ----------------------------------------------------------
 
-# Caveat: Prepare "jq" and "gnu getopt" command and make them ready to be invoked only by the name 
+# Caveat: Make sure curl, jq, and GNU getopt can be invoked by name (i.e., are in your PATH).
 
 # ----------------------------------------------------------
 
@@ -104,7 +105,6 @@ jq=$(which jq)
 [ "x$(which getopt)" != "x" ] && ggetopt=$(which getopt)
 [ "x$(which gnu-getopt)" != "x" ] && ggetopt=$(which gnu-getopt)
 [ "x$ggetopt" = "x" ] && error_exit "Can't find getopt nor gnu-getopt" 2
-
 ($ggetopt --version | grep -q -e --) && error_exit "Can't find getopt which can handle long options" 2
 
 # ----------------------------------------------------------
@@ -240,9 +240,9 @@ x=0
 while [ 1 ]; do
     x=$(($x + 1 ))
     rm -f  "$TMPFILE"; touch "$TMPFILE"
-    [ "x$VERBOSE" != "x" ] && echo curl -H '"'"Authorization: token ACCESS_TOKEN"'"' '"'"https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x"'"' 1>&2
+    [ "x$VERBOSE" != "x" ] && echo curl -H '"'"Authorization: token \$ACCESS_TOKEN"'"' '"'"https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x"'"' 1>&2
     curl -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x" 2> /dev/null \
-    | jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name' \
+    | $jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name' \
     | tee "$TMPFILE"
     z="$(cat $TMPFILE | wc -l | sed 's/ //g')"
     [ $DEBUG -ge 1 ] && echo "debug: page $x : $z lines ($TMPFILE)" 1>&2
