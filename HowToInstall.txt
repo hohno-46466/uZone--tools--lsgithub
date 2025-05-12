@@ -2,7 +2,7 @@
 # How to install this script
 #
 
-Prepare jq and getopt
+Prepare curl, jq and getopt
 
 Prepare ~/.secret/github
 
