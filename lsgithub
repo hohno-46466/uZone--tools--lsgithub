@@ -240,7 +240,7 @@ x=0
 while [ 1 ]; do
     x=$(($x + 1 ))
     rm -f  "$TMPFILE"; touch "$TMPFILE"
-    [ "x$VERBOSE" != "x" ] && echo curl -H '"'"Authorization: token ACCESS_TOKEN"'"' '"'"https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x""'" 1>&2
+    [ "x$VERBOSE" != "x" ] && echo curl -H '"'"Authorization: token ACCESS_TOKEN"'"' '"'"https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x"'"' 1>&2
     curl -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user/repos?&type=${REPO_TYPE}&per_page=100&page=$x" 2> /dev/null \
     | jq '.[] | select(.owner.login '${JQ_OP}' "'${GITHUB_USER}'") |.created_at, .updated_at, .name' \
     | tee "$TMPFILE"
