@@ -102,8 +102,8 @@ fi
 jq=$(which jq)
 
 # Search for getopt command
-[ "x$(which getopt)" != "x" ] && ggetopt=$(which getopt)
-[ "x$(which gnu-getopt)" != "x" ] && ggetopt=$(which gnu-getopt)
+[ "x$(which getopt 2>/dev/null)" != "x" ] && ggetopt=$(which getopt)
+[ "x$(which gnu-getopt 2>/dev/null)" != "x" ] && ggetopt=$(which gnu-getopt)
 [ "x$ggetopt" = "x" ] && error_exit "Can't find getopt nor gnu-getopt" 2
 ($ggetopt --version | grep -q -e --) && error_exit "Can't find getopt which can handle long options" 2
 
